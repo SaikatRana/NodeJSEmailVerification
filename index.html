@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>NodeJS Email Verification Application</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    var from,to,subject,text;
+    $("#send_email").click(function(){     
+        to=$("#to").val();   
+        if(to == "")
+        {
+            $("#to").focus();
+            alert("Please Enter Email !!!");
+            return false;
+        } 
+        $("#message").text("Sending E-mail...Please wait...");
+        $.get("http://localhost:9999/send",{to:to},function(data){
+            if(data=="sent")
+            {
+                $("#message").empty().html("<p>Email is been sent at "+to+" . Please check inbox !</p>");
+            }
+
+        });
+    });
+});
+</script>
+<style>
+#container
+{
+    margin-left:400px;
+    margin-top:50px;
+}
+#to,#subject,#content
+{
+    font-family: "Segoe UI";
+    font-size:18px;
+    width:530px;
+}
+h1
+{
+    font-family: "Segoe UI";
+    font-size:40px; 
+    color: pink;
+}
+p
+{
+    color:green;
+}
+#send_email
+{
+    font-size:29px;
+    font-family: "ALGERIAN";
+    background-color: green;
+}
+#message
+{
+    font-size:20px;
+}
+</style>
+</head>
+<body>
+<div id="container">
+    <h1>Email-Verification </h1>
+    <input type="text" id="to" placeholder="Enter Email to verify" required="true"><br>
+    <button id="send_email">Send Email</button><br><br>
+    <span id="message"></span>
+</div>
+</body>
+</html>
